@@ -357,6 +357,7 @@
 }
 
 .social-btn img {
+    filter: brightness(0) invert(1); /* bianco */
     width: 24px;
     height: 24px;
 }
