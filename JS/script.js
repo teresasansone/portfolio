@@ -36,10 +36,4 @@
     overlay.onclick = (e) => { if(e.target === overlay) closeCard(); };
     window.onkeydown = (e) => { if(e.key === "Escape") closeCard(); };
 
-    // 3. Invio Form
-    document.querySelector('.contact-form').onsubmit = (e) => {
-        e.preventDefault();
-        alert("Sent!");
-        closeCard();
-    };
 
