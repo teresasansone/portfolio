@@ -347,12 +347,18 @@
     }   
 
     .social-btn {
-    color: white;
-    opacity: 0.7;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.social-btn img {
+    width: 24px;
+    height: 24px;
 }
 
 .social-btn:hover {
