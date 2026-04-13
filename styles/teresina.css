@@ -1,0 +1,347 @@
+    :root { 
+        --main-pink: #FF59AC;
+        --nav-height: 100px; /* Verrà aggiornato dal JS */
+    }
+
+    /* --- RESET & BASE --- */
+    * { box-sizing: border-box; }
+    body { 
+        font-family: sans-serif; 
+        margin: 0; padding: 0; 
+        overflow-x: hidden;
+        background-color: white;
+    }
+
+    /* --- NAVBAR --- */
+    .navbar { 
+        background-color: white !important; 
+        z-index: 1050; 
+        padding: 0 !important;
+        border: none !important;
+    box-shadow:0 1px 15.6px #777 !important;
+    }
+    .navbar-brand { margin: 0; padding: 0; }
+    .navbar-brand img {
+        transition: transform 0.3s ease-in-out;
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .navbar-brand:hover img { transform: scale(1.03); }
+
+    /* --- BOTTONI --- */
+    .btn-outline-cool, #open-btn-mobile {
+        background-color: var(--main-pink) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 50px !important;
+        padding: 10px 25px !important;
+        font-weight: bold;
+        transition: transform 0.3s ease !important;
+        box-shadow: none !important;
+    }
+    .btn-outline-cool:hover { transform: scale(1.05); }
+
+    /* --- COLONNE SCROLLABILI --- */
+    .column-scroll {
+        margin-top: var(--nav-height);
+        height: calc(100vh - var(--nav-height));
+        overflow-y: auto;
+    }
+
+    /* Scrollbar Personalizzata Rosa/Grigio */
+    .column-scroll::-webkit-scrollbar { width: 8px; }
+    .column-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
+    .column-scroll::-webkit-scrollbar-thumb { 
+        background: var(--main-pink); 
+        border-radius: 10px; 
+        border: 2px solid #a8a8a8;
+    }
+    .column-scroll { scrollbar-width: thin; scrollbar-color: var(--main-pink) #f1f1f1; }
+
+    /* --- LAYOUT PC (Desktop) --- */
+    @media (min-width: 992px) {
+        .navbar-brand img { width: 600px; } /* Dimensione logo PC */
+        .nav-btn-desktop { display: block !important; }
+        #open-btn-mobile { display: none !important; }
+    }
+
+    /* --- LAYOUT MOBILE --- */
+    @media (max-width: 991px) {
+        .navbar-brand { width: 100% !important; text-align: center; }
+        .nav-btn-desktop { display: none !important; }
+        #open-btn-mobile { 
+            display: flex !important; 
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            z-index: 900; white-space: nowrap;
+        }
+        .column-scroll {
+            height: auto;
+            overflow-y: visible;
+            margin-top: var(--nav-height);
+        }
+    }
+
+    /* --- OVERLAY & CARD --- */
+    #overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+        display: none; z-index: 3000; align-items: center; justify-content: center;
+        opacity: 0; transition: opacity 0.5s ease;
+    }
+    #overlay.visible { display: flex; opacity: 1; }
+    #morph-card {
+        background: var(--main-pink); width: 550px; max-width: 90%;
+        border-radius: 40px; padding: 40px; color: white;
+        transform: scale(0.8); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    #overlay.active #morph-card { transform: scale(1); }
+    .contact-form input, .contact-form textarea {
+        width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.5);
+        color: white; margin-bottom: 20px; outline: none; padding: 10px 0;
+    }
+    .contact-form input::placeholder { color: rgba(255,255,255,0.6); }
+
+    /* --- CHIUDI X --- */
+    .close-circle {
+        position: fixed; bottom: 5%; left: 50%; 
+        transform: translateX(-50%) scale(0);
+        width: 65px; height: 65px; background: white; color: var(--main-pink);
+        border-radius: 50%; border: none; font-size: 45px; 
+        display: flex; align-items: center; justify-content: center; 
+        padding-bottom: 8px; cursor: pointer; z-index: 3001;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s, color 0.3s;
+    }
+
+    #overlay.active .close-circle { transform: translateX(-50%) scale(1); }
+
+    /* Hover della X con alta priorità */
+    #overlay.active .close-circle:hover {
+        transform: translateX(-50%) scale(1.15) !important;
+        background-color: var(--main-pink) !important;
+        color: white !important;
+    }
+
+.back-to-home {
+    /* Posizionamento */
+    position: fixed; 
+    bottom: 5%; 
+    left: 50%; 
+    transform: translateX(-50%); /* Rimosso scale(0), ora è sempre visibile */
+    
+    /* Forma e Colori */
+    width: 65px; 
+    height: 65px; 
+    background-color: white; 
+    color: var(--main-pink);
+    border-radius: 50%; 
+    border: none; 
+    
+    /* Testo e Icona */
+    font-size: 45px; /* Ridotto leggermente per centrare meglio le icone */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding-bottom: 8px; cursor: pointer; z-index: 3001;
+    text-decoration: none !important; /* Fondamentale per il tag <a> */
+    
+    /* Feedback visivo */
+    z-index: 800; /* Più basso dell'overlay (3001) ma sopra i progetti */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.272); /* Ombra per profondità */
+    
+    /* Animazioni */
+    transition:  transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                 background-color 0.3s ease,
+                  color 0.3s ease;
+}
+
+/* Effetto Hover */
+.back-to-home:hover {
+    transform: translateX(-50%) scale(1.15);
+    background-color: var(--main-pink);
+    color: white;
+    box-shadow: 0 8px 25px rgba(255, 89, 172, 0.357);
+}
+
+    .map-wrapper {
+    width: 100%;
+    border-radius: 20px; /* Arrotonda gli angoli della mappa */
+    overflow: hidden;    /* Taglia gli angoli dell'iframe */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    /* Effetto minimalista: bianco e nero, torna a colori al passaggio del mouse */
+    filter: grayscale(1) opacity(0.8);
+    transition: all 0.4s ease;
+}
+
+.map-wrapper:hover {
+    filter: grayscale(0) opacity(1);
+}
+
+.map-wrapper iframe {
+    display: block; /* Toglie piccoli spazi bianchi sotto l'iframe */
+}
+
+/* --- FEED PROGETTI FULL SCREEN --- */
+.project-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 500px; /* Regola l'altezza dei blocchi come preferisci */
+    overflow: hidden;
+    text-decoration: none !important;
+}
+
+.project-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fondamentale: riempie il blocco senza deformarsi */
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Velatura scura per leggere meglio il testo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.project-title {
+    color: white;
+    font-size: 2.5rem; /* Dimensione del testo */
+    font-weight: 800;   /* Extra Bold come nell'immagine */
+    text-align: center;
+    padding: 0 20px;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Ombra leggera per leggibilità */
+}
+
+/* --- EFFETTI HOVER --- */
+.project-item:hover img {
+    transform: scale(1.05); /* Lieve zoom dell'immagine */
+}
+
+.project-item:hover .project-overlay {
+    background: rgba(0, 0, 0, 0.4); /* Si scurisce un po' di più al passaggio */
+}
+
+/* Rendi il titolo rosa quando ci passi sopra (opzionale) */
+/* .project-item:hover .project-title { color: var(--main-pink); } */
+
+/* --- MOBILE --- */
+@media (max-width: 767px) {
+    .project-item {
+        height: 350px; /* Blocchi un po' più bassi su telefono */
+    }
+    .project-title {
+        font-size: 1.5rem;
+    }
+}
+
+    /* --- SEZIONE IMMAGINE FULLSCREEN --- */
+    .fullscreen-section {
+        width: 100%;
+        height: 100vh; /* Altezza pari al 100% dello schermo su PC */
+        overflow: hidden;
+        position: relative;
+    }
+
+    .fullscreen-section img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Riempie lo schermo senza deformarsi */
+        display: block;
+    }
+
+    /* --- MOBILE ADJUSTMENT --- */
+    @media (max-width: 767px) {
+        .fullscreen-section {
+            height: 100vh; /* Su mobile l'altezza si adatta all'immagine */
+            min-height: 100vh; /* Ma mantiene almeno metà schermo */
+        }
+        .fullscreen-section img {
+            height: 100vh; /* L'immagine mantiene la sua proporzione naturale */
+        }
+    }
+
+    /* --- TESTO SOPRA L'IMMAGINE (Opzionale) --- */
+    .caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;   
+        z-index: 10;
+        text-align: center;
+        font-size: 80px;
+        text-shadow: 0 2px 10px #00000095; /* Ombra leggera per leggibilità */
+    }
+
+@media (max-width: 767px) {
+    .caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;   
+        z-index: 10;
+        text-align: center;
+        width: 90%;          /* più larga */
+        max-width: 320px;    /* regola questo valore */
+        font-size: 25px;
+        text-shadow: 0 2px 10px  #00000095; /* Ombra leggera per leggibilità */
+    }
+
+}
+
+    /* BARRA DI PROGRESSO ORIZZONTALE */
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px; /* Sottile ed elegante */
+      background: rgba(0,0,0,0.1);
+      z-index: 9999;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--main-pink);
+      width: 0%; /* Inizia a zero, gestita da JS */
+      box-shadow: 0 0 10px var(--main-pink);
+    }
+
+    /* CONTENUTO PROGETTO */
+    .project-content {
+      background-color: #fff;
+      color: #000;
+      padding: 100px 0;
+    }
+
+    .editorial-text {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.15rem;
+      line-height: 1.8;
+    }
+
+    .project-step {
+      margin-bottom: 80px;
+    }
+
+    .step-number {
+      color: var(--main-pink);
+      font-weight: 800;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 10px;
+    }   
