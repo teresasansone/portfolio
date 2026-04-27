@@ -370,7 +370,7 @@
 /* --- WRAPPER MEDIA (PNG e GIF) --- */
 .media-wrapper {
     background: #f8f8f8;
-    border-radius: 20px;
+    border-radius: 0px;
     overflow: hidden;
     display: flex;
     align-items: center;
