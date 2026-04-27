@@ -367,6 +367,23 @@
     transform: scale(1.2);
 }
 
+/* --- WRAPPER MEDIA (PNG e GIF) --- */
+.media-wrapper {
+    background: #f8f8f8;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-media {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
 .social-links {
     display: flex;
     justify-content: center;
